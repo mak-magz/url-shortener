@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: urlshortener-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: urlshortener
+      POSTGRES_PASSWORD: secret123
+      POSTGRES_DB: urlshortener
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
