@@ -13,8 +13,7 @@ A URL shortener service — built as a DevOps practice project.
 	- Nuxt UI
 - Backend
   - Go (Gin)
-	- GORM
-	- PostgreSQL
+	- PostgreSQL / pgx
 - Docs
   - Markdown
 	- Swagger
