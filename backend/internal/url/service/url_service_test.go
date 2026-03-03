@@ -21,7 +21,14 @@ func (m *MockRepo) CreateShortURL(ctx context.Context, u *model.URL) error {
 }
 
 func (m *MockRepo) GetURLByShortCode(ctx context.Context, shortCode string) (*model.URL, error) {
-	return nil, nil
+	url := &model.URL{
+		ID:          1,
+		OriginalURL: "https://www.google.com",
+		ShortCode:   "abc123",
+		Clicks:      0,
+		CreatedAt:   time.Now(),
+	}
+	return url, nil
 }
 
 func (m *MockRepo) IncrementClick(ctx context.Context, id int64) error {
@@ -59,5 +66,19 @@ func TestCreateShortURL(t *testing.T) {
 
 	if resp.CreatedAt.IsZero() {
 		t.Errorf("Created at is zero")
+	}
+}
+
+func TestGetOriginalURL(t *testing.T) {
+	mockRepo := &MockRepo{}
+	service := service.NewURLService(mockRepo)
+
+	resp, err := service.GetOriginalURL(context.Background(), "abc123")
+	if err != nil {
+		t.Errorf("Error getting original URL: %v", err)
+	}
+
+	if resp != "https://www.google.com" {
+		t.Errorf("Original URL does not match")
 	}
 }
