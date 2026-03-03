@@ -49,7 +49,19 @@ func (u *URLService) CreateShortURL(ctx context.Context, req *model.CreateURLReq
 
 // GetOriginalURL implements [Service].
 func (u *URLService) GetOriginalURL(ctx context.Context, shortCode string) (string, error) {
-	panic("unimplemented")
+	url, err := u.repo.GetURLByShortCode(ctx, shortCode)
+
+	if err != nil {
+		return "", err
+	}
+
+	err = u.repo.IncrementClick(ctx, url.ID)
+
+	if err != nil {
+		return "", err
+	}
+
+	return url.OriginalURL, nil
 }
 
 func generateShortCode(length int) string {
