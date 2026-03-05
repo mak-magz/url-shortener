@@ -37,5 +37,7 @@ func main() {
 
 	router.POST("/api/v1/shorten", urlHandler.CreateShortURL)
 
+	router.GET("/:shortCode", urlHandler.RedirectToOriginalURL)
+
 	router.Run(":8080")
 }

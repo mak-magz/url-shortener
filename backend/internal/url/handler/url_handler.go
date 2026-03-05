@@ -10,7 +10,7 @@ import (
 
 type Handler interface {
 	CreateShortURL(c *gin.Context)
-	GetOriginalURL(c *gin.Context)
+	RedirectToOriginalURL(c *gin.Context)
 }
 
 type URLHandler struct {
@@ -39,7 +39,15 @@ func (u *URLHandler) CreateShortURL(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": url})
 }
 
-// GetOriginalURL implements [Handler].
-func (u *URLHandler) GetOriginalURL(c *gin.Context) {
-	panic("unimplemented")
+// RedirectToOriginalURL implements [Handler].
+func (u *URLHandler) RedirectToOriginalURL(c *gin.Context) {
+	shortCode := c.Param("shortCode")
+
+	originalURL, err := u.service.GetOriginalURL(c, shortCode)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.Redirect(http.StatusFound, originalURL)
 }
