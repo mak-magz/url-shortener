@@ -10,6 +10,7 @@ import (
 	"github.com/mak-magz/url-shortener/internal/url/service"
 	"github.com/mak-magz/url-shortener/platform/config"
 	"github.com/mak-magz/url-shortener/platform/db"
+	"github.com/mak-magz/url-shortener/platform/middleware"
 )
 
 func main() {
@@ -30,6 +31,8 @@ func main() {
 	router.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
 	})
+
+	router.Use(middleware.ErrorMiddleware())
 
 	urlRepo := repository.NewPostgresRepository(pool)
 	urlService := service.NewURLService(urlRepo)
