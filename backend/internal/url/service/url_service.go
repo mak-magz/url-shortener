@@ -5,6 +5,8 @@ import (
 	"math/rand"
 	"time"
 
+	appErrors "github.com/mak-magz/url-shortener/platform/errors"
+
 	"github.com/mak-magz/url-shortener/internal/url/model"
 	"github.com/mak-magz/url-shortener/internal/url/repository"
 )
@@ -35,7 +37,7 @@ func (u *URLService) CreateShortURL(ctx context.Context, req *model.CreateURLReq
 	}
 
 	if err := u.repo.CreateShortURL(ctx, newURL); err != nil {
-		return nil, err
+		return nil, appErrors.NewInternalError("Failed to create short URL", err)
 	}
 
 	return &model.CreateURLResponse{
@@ -52,13 +54,13 @@ func (u *URLService) GetOriginalURL(ctx context.Context, shortCode string) (stri
 	url, err := u.repo.GetURLByShortCode(ctx, shortCode)
 
 	if err != nil {
-		return "", err
+		return "", appErrors.NewNotFoundError("URL not found", err)
 	}
 
 	err = u.repo.IncrementClick(ctx, url.ID)
 
 	if err != nil {
-		return "", err
+		return "", appErrors.NewInternalError("Failed to increment click count", err)
 	}
 
 	return url.OriginalURL, nil

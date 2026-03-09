@@ -6,6 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/mak-magz/url-shortener/internal/url/model"
 	"github.com/mak-magz/url-shortener/internal/url/service"
+
+	appErrors "github.com/mak-magz/url-shortener/platform/errors"
 )
 
 type Handler interface {
@@ -26,13 +28,13 @@ func (u *URLHandler) CreateShortURL(c *gin.Context) {
 	var req model.CreateURLRequest
 
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.Error(appErrors.FormatValidationError(err))
 		return
 	}
 
 	url, err := u.service.CreateShortURL(c, &req)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.Error(err)
 		return
 	}
 
@@ -45,7 +47,7 @@ func (u *URLHandler) RedirectToOriginalURL(c *gin.Context) {
 
 	originalURL, err := u.service.GetOriginalURL(c, shortCode)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.Error(err)
 		return
 	}
 
