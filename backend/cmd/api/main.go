@@ -32,6 +32,7 @@ func main() {
 		c.String(http.StatusOK, "pong")
 	})
 
+	router.Use(middleware.SetupCORS())
 	router.Use(middleware.ErrorMiddleware())
 
 	urlRepo := repository.NewPostgresRepository(pool)
