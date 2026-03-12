@@ -1,6 +1,32 @@
+<script lang="ts" setup>
+const url = ref('')
+
+const shortenUrl = () => {
+  console.log(url.value)
+}
+</script>
+
 <template>
   <div>
-    <h1>Home</h1>
+    <UContainer class="flex flex-col justify-center items-center mt-30">
+      <div class="flex gap-4 mb-4">
+        <UInput
+          v-model="url"
+          placeholder="Enter URL"
+          label="URL"
+        />
+        <UButton
+          label="Shorten"
+          color="primary"
+          variant="solid"
+          @click="shortenUrl"
+        />
+      </div>
+
+      <div>
+        <p>Shortened URL: {{ url }}</p>
+      </div>
+    </UContainer>
     <!-- <UPageHero
       title="Nuxt Starter Template"
       description="A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours."

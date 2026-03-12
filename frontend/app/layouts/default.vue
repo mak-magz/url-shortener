@@ -13,6 +13,13 @@
         <UColorModeButton />
 
         <UButton
+          to="/login"
+          label="Login"
+          color="neutral"
+          variant="ghost"
+        />
+
+        <UButton
           to="https://github.com/nuxt-ui-templates/starter"
           target="_blank"
           icon="i-simple-icons-github"
