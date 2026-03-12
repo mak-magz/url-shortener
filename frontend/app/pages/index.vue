@@ -1,9 +1,31 @@
 <script lang="ts" setup>
-const url = ref('')
+import { useMutation } from '@pinia/colada'
 
-const shortenUrl = () => {
-  console.log(url.value)
+type UrlInfo = {
+  shortCode: string
 }
+
+const url = ref('')
+const shortUrl = ref('')
+
+const { mutate: shortenUrl, status, asyncStatus } = useMutation({
+  mutation: (url: string) => {
+    return $fetch<{ data: UrlInfo }>('http://localhost:8080/api/v1/shorten', {
+      method: 'POST',
+      body: {
+        originalUrl: url
+      }
+    })
+  },
+  onSuccess: (response) => {
+    console.log(response)
+    // response is correctly typed as { shortUrl: string }
+    shortUrl.value = 'http://localhost:8080/' + response.data.shortCode
+  },
+  onError: (error) => {
+    console.error(error)
+  }
+})
 </script>
 
 <template>
@@ -19,12 +41,12 @@ const shortenUrl = () => {
           label="Shorten"
           color="primary"
           variant="solid"
-          @click="shortenUrl"
+          @click="shortenUrl(url)"
         />
       </div>
 
       <div>
-        <p>Shortened URL: {{ url }}</p>
+        <p>Shortened URL: {{ shortUrl }}</p>
       </div>
     </UContainer>
     <!-- <UPageHero
