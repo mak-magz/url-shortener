@@ -5,10 +5,10 @@ type UrlInfo = {
   shortCode: string
 }
 
-const url = ref('')
+const _url = ref('')
 const shortUrl = ref('')
 
-const { mutate: shortenUrl, status, asyncStatus, error, data } = useMutation({
+const { mutate: _shortenUrl, status, asyncStatus, error, data } = useMutation({
   mutation: (url: string) => {
     return $fetch<{ data: UrlInfo }>('http://localhost:8080/api/v1/shorten', {
       method: 'POST',
@@ -46,7 +46,7 @@ watch(asyncStatus, (newAsyncStatus) => {
 
 <template>
   <div>
-    <UContainer class="flex flex-col justify-center items-center mt-30">
+    <!-- <UContainer class="flex flex-col justify-center items-center mt-30">
       <div class="flex gap-4 mb-4">
         <UInput
           v-model="url"
@@ -72,10 +72,11 @@ watch(asyncStatus, (newAsyncStatus) => {
           Error: {{ error }}
         </p>
       </div>
-    </UContainer>
-    <!-- <UPageHero
-      title="Nuxt Starter Template"
-      description="A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours."
+    </UContainer> -->
+    <UPageHero
+      orientation="horizontal"
+      title="Shorten Your Links, Expand Your Reach"
+      description="SwiftLink helps you create short, powerful links that are easy to share and track. Boost your click-through rates and manage your digital footprint with ease."
       :links="[{
         label: 'Get started',
         to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
@@ -91,8 +92,16 @@ watch(asyncStatus, (newAsyncStatus) => {
         color: 'neutral',
         variant: 'subtle'
       }]"
-    />
+    >
+      <template #title>
+        <div class="flex flex-col justify-center items-center">
+          <p>Shorten Your Links, <span class="text-primary">Expand Your Reach</span></p>
+        </div>
+      </template>
 
+      <AppSampleCard />
+    </UPageHero>
+    <!--
     <UPageSection
       id="features"
       title="Everything you need to build modern Nuxt apps"
