@@ -8,7 +8,7 @@ type UrlInfo = {
 const url = ref('')
 const shortUrl = ref('')
 
-const { mutate: shortenUrl, status, asyncStatus } = useMutation({
+const { mutate: shortenUrl, status, asyncStatus, error, data } = useMutation({
   mutation: (url: string) => {
     return $fetch<{ data: UrlInfo }>('http://localhost:8080/api/v1/shorten', {
       method: 'POST',
@@ -25,6 +25,22 @@ const { mutate: shortenUrl, status, asyncStatus } = useMutation({
   onError: (error) => {
     console.error(error)
   }
+})
+
+watch(data, (newData) => {
+  console.log(newData)
+})
+
+watch(error, (newError) => {
+  console.log(newError)
+})
+
+watch(status, (newStatus) => {
+  console.log(newStatus)
+})
+
+watch(asyncStatus, (newAsyncStatus) => {
+  console.log(newAsyncStatus)
 })
 </script>
 
@@ -46,7 +62,15 @@ const { mutate: shortenUrl, status, asyncStatus } = useMutation({
       </div>
 
       <div>
-        <p>Shortened URL: {{ shortUrl }}</p>
+        <p v-if="status === 'pending' && asyncStatus === 'loading'">
+          Shortening URL...
+        </p>
+        <p v-if="status === 'success'">
+          Shortened URL: {{ shortUrl }}
+        </p>
+        <p v-if="status === 'error'">
+          Error: {{ error }}
+        </p>
       </div>
     </UContainer>
     <!-- <UPageHero
