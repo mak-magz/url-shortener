@@ -1,28 +1,28 @@
 <template>
-  <div>
-    <AppHeader />
+	<div>
+		<AppHeader />
 
-    <UMain>
-      <slot />
-    </UMain>
+		<UMain>
+			<slot />
+		</UMain>
 
-    <UFooter>
-      <template #left>
-        <p class="text-sm text-muted">
-          Built with Nuxt UI • © {{ new Date().getFullYear() }}
-        </p>
-      </template>
+		<UFooter>
+			<template #left>
+				<p class="text-sm text-muted">
+					Built with Nuxt UI • © {{ new Date().getFullYear() }}
+				</p>
+			</template>
 
-      <template #right>
-        <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
-          target="_blank"
-          icon="i-simple-icons-github"
-          aria-label="GitHub"
-          color="neutral"
-          variant="ghost"
-        />
-      </template>
-    </UFooter>
-  </div>
+			<template #right>
+				<UButton
+					to="https://github.com/nuxt-ui-templates/starter"
+					target="_blank"
+					icon="i-simple-icons-github"
+					aria-label="GitHub"
+					color="neutral"
+					variant="ghost"
+				/>
+			</template>
+		</UFooter>
+	</div>
 </template>

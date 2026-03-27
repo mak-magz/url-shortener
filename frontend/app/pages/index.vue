@@ -2,51 +2,51 @@
 import { useMutation } from '@pinia/colada'
 
 type UrlInfo = {
-  shortCode: string
+	shortCode: string
 }
 
 const _url = ref('')
 const shortUrl = ref('')
 
 const { mutate: _shortenUrl, status, asyncStatus, error, data } = useMutation({
-  mutation: (url: string) => {
-    return $fetch<{ data: UrlInfo }>('http://localhost:8080/api/v1/shorten', {
-      method: 'POST',
-      body: {
-        originalUrl: url
-      }
-    })
-  },
-  onSuccess: (response) => {
-    console.log(response)
-    // response is correctly typed as { shortUrl: string }
-    shortUrl.value = 'http://localhost:8080/' + response.data.shortCode
-  },
-  onError: (error) => {
-    console.error(error)
-  }
+	mutation: (url: string) => {
+		return $fetch<{ data: UrlInfo }>('http://localhost:8080/api/v1/shorten', {
+			method: 'POST',
+			body: {
+				originalUrl: url
+			}
+		})
+	},
+	onSuccess: (response) => {
+		console.log(response)
+		// response is correctly typed as { shortUrl: string }
+		shortUrl.value = 'http://localhost:8080/' + response.data.shortCode
+	},
+	onError: (error) => {
+		console.error(error)
+	}
 })
 
 watch(data, (newData) => {
-  console.log(newData)
+	console.log(newData)
 })
 
 watch(error, (newError) => {
-  console.log(newError)
+	console.log(newError)
 })
 
 watch(status, (newStatus) => {
-  console.log(newStatus)
+	console.log(newStatus)
 })
 
 watch(asyncStatus, (newAsyncStatus) => {
-  console.log(newAsyncStatus)
+	console.log(newAsyncStatus)
 })
 </script>
 
 <template>
-  <div>
-    <!-- <UContainer class="flex flex-col justify-center items-center mt-30">
+	<div>
+		<!-- <UContainer class="flex flex-col justify-center items-center mt-30">
       <div class="flex gap-4 mb-4">
         <UInput
           v-model="url"
@@ -73,35 +73,35 @@ watch(asyncStatus, (newAsyncStatus) => {
         </p>
       </div>
     </UContainer> -->
-    <UPageHero
-      orientation="horizontal"
-      title="Shorten Your Links, Expand Your Reach"
-      description="SwiftLink helps you create short, powerful links that are easy to share and track. Boost your click-through rates and manage your digital footprint with ease."
-      :links="[{
-        label: 'Get started',
-        to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-        target: '_blank',
-        trailingIcon: 'i-lucide-arrow-right',
-        size: 'xl'
-      }, {
-        label: 'Use this template',
-        to: 'https://github.com/nuxt-ui-templates/starter',
-        target: '_blank',
-        icon: 'i-simple-icons-github',
-        size: 'xl',
-        color: 'neutral',
-        variant: 'subtle'
-      }]"
-    >
-      <template #title>
-        <div class="flex flex-col justify-center items-center">
-          <p>Shorten Your Links, <span class="text-primary">Expand Your Reach</span></p>
-        </div>
-      </template>
+		<UPageHero
+			orientation="horizontal"
+			title="Shorten Your Links, Expand Your Reach"
+			description="SwiftLink helps you create short, powerful links that are easy to share and track. Boost your click-through rates and manage your digital footprint with ease."
+			:links="[{
+				label: 'Get started',
+				to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
+				target: '_blank',
+				trailingIcon: 'i-lucide-arrow-right',
+				size: 'xl'
+			}, {
+				label: 'Use this template',
+				to: 'https://github.com/nuxt-ui-templates/starter',
+				target: '_blank',
+				icon: 'i-simple-icons-github',
+				size: 'xl',
+				color: 'neutral',
+				variant: 'subtle'
+			}]"
+		>
+			<template #title>
+				<div class="flex flex-col justify-center items-center">
+					<p>Shorten Your Links, <span class="text-primary">Expand Your Reach</span></p>
+				</div>
+			</template>
 
-      <AppSampleCard />
-    </UPageHero>
-    <!--
+			<AppSampleCard />
+		</UPageHero>
+		<!--
     <UPageSection
       id="features"
       title="Everything you need to build modern Nuxt apps"
@@ -154,5 +154,5 @@ watch(asyncStatus, (newAsyncStatus) => {
         }]"
       />
     </UPageSection> -->
-  </div>
+	</div>
 </template>
