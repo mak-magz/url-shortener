@@ -1,0 +1,30 @@
+{
+    "name": "Go & Node Podman Dev",
+    "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+
+    "features": {
+        // This installs JUST the 'docker' command (client)
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "installOnlyClient": true
+        },
+        "ghcr.io/devcontainers/features/go:1": {},
+        "ghcr.io/devcontainers/features/node:1": {}
+    },
+
+    "mounts": [
+        "source=/run/user/1000/podman/podman.sock,target=/var/run/docker.sock,type=bind"
+    ],
+
+    "containerEnv": {
+        "DOCKER_HOST": "unix:///var/run/docker.sock"
+    },
+
+    "runArgs": [
+        "--security-opt", "label=disable",
+        "--name", "url-shortener-dev"
+    ],
+
+    "remoteUser": "vscode",
+
+    "postCreateCommand": "echo 'alias pps=\"docker ps --format \\\"table {{.ID}}\\t{{.Names}}\\t{{.Status}}\\\"\"' >> ~/.bashrc"
+}
