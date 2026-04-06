@@ -1,12 +1,12 @@
 {
 	"rewrites": [
 		{
-			"source": "/api/(.*)",
-			"destination": "https://swiftlink-api-46734577301.asia-southeast1.run.app/api/v1/$1"
+			"source": "/api/:match*",
+			"destination": "https://swiftlink-api-46734577301.asia-southeast1.run.app/api/v1/:match*"
 		},
 		{
-			"source": "/(?<code>[a-zA-Z0-9]{6})",
-			"destination": "https://swiftlink-api-46734577301.asia-southeast1.run.app/$code"
+			"source": "/:code([a-zA-Z0-9]{6})",
+			"destination": "https://swiftlink-api-46734577301.asia-southeast1.run.app/:code"
 		}
 	]
 }
