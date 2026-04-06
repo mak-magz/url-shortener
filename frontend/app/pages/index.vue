@@ -4,33 +4,6 @@
 
 <template>
 	<div>
-		<!-- <UContainer class="flex flex-col justify-center items-center mt-30">
-      <div class="flex gap-4 mb-4">
-        <UInput
-          v-model="url"
-          placeholder="Enter URL"
-          label="URL"
-        />
-        <UButton
-          label="Shorten"
-          color="primary"
-          variant="solid"
-          @click="shortenUrl(url)"
-        />
-      </div>
-
-      <div>
-        <p v-if="status === 'pending' && asyncStatus === 'loading'">
-          Shortening URL...
-        </p>
-        <p v-if="status === 'success'">
-          Shortened URL: {{ shortUrl }}
-        </p>
-        <p v-if="status === 'error'">
-          Error: {{ error }}
-        </p>
-      </div>
-    </UContainer> -->
 		<UPageHero
 			orientation="horizontal"
 			title="Shorten Your Links, Expand Your Reach"
@@ -65,6 +38,8 @@
 
 			<AppSampleCard />
 		</UPageHero>
+
+		<LandingFeatureSection />
 		<!--
     <UPageSection
       id="features"
