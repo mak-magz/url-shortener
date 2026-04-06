@@ -16,6 +16,14 @@ export default defineNuxtConfig({
 
 	css: ['~/assets/css/main.css'],
 
+	runtimeConfig: {
+		public: {
+			backendApiBaseUrl: process.env.BACKEND_API_BASE_URL,
+			backendApiVersion: process.env.BACKEND_API_VERSION,
+			backendApiPrefix: process.env.BACKEND_API_PREFIX
+		}
+	},
+
 	routeRules: {
 		'/': { prerender: true }
 	},

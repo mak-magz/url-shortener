@@ -5,12 +5,14 @@ type UrlInfo = {
 	shortCode: string
 }
 
+const config = useRuntimeConfig()
+
 const url = ref('')
 const shortUrl = ref('')
 
 const { mutate: shortenUrl, status, asyncStatus, error, data } = useMutation({
 	mutation: (url: string) => {
-		return $fetch<{ data: UrlInfo }>('http://localhost:8080/api/v1/shorten', {
+		return $fetch<{ data: UrlInfo }>(`${config.public.backendApiBaseUrl}/${config.public.backendApiPrefix}/${config.public.backendApiVersion}/shorten`, {
 			method: 'POST',
 			body: {
 				originalUrl: url
@@ -20,7 +22,7 @@ const { mutate: shortenUrl, status, asyncStatus, error, data } = useMutation({
 	onSuccess: (response) => {
 		console.log(response)
 		// response is correctly typed as { shortUrl: string }
-		shortUrl.value = 'http://localhost:8080/' + response.data.shortCode
+		shortUrl.value = config.public.backendApiBaseUrl + '/' + response.data.shortCode
 	},
 	onError: (error) => {
 		console.error(error)
@@ -90,7 +92,7 @@ watch(asyncStatus, (newAsyncStatus) => {
 				/>
 				<div class="flex flex-col  w-full">
 					<span class="font-bold"> Short URL</span>
-					<span>{{ shortUrl }}</span>
+					<span class="text-ellipsis overflow-hidden whitespace-nowrap max-w-[200px]">{{ shortUrl }}</span>
 				</div>
 				<UButton
 					label="Copy"
