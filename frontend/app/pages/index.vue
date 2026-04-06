@@ -1,47 +1,5 @@
 <script lang="ts" setup>
-import { useMutation } from '@pinia/colada'
 
-type UrlInfo = {
-	shortCode: string
-}
-
-const _url = ref('')
-const shortUrl = ref('')
-
-const { mutate: _shortenUrl, status, asyncStatus, error, data } = useMutation({
-	mutation: (url: string) => {
-		return $fetch<{ data: UrlInfo }>('http://localhost:8080/api/v1/shorten', {
-			method: 'POST',
-			body: {
-				originalUrl: url
-			}
-		})
-	},
-	onSuccess: (response) => {
-		console.log(response)
-		// response is correctly typed as { shortUrl: string }
-		shortUrl.value = 'http://localhost:8080/' + response.data.shortCode
-	},
-	onError: (error) => {
-		console.error(error)
-	}
-})
-
-watch(data, (newData) => {
-	console.log(newData)
-})
-
-watch(error, (newError) => {
-	console.log(newError)
-})
-
-watch(status, (newStatus) => {
-	console.log(newStatus)
-})
-
-watch(asyncStatus, (newAsyncStatus) => {
-	console.log(newAsyncStatus)
-})
 </script>
 
 <template>
@@ -96,6 +54,12 @@ watch(asyncStatus, (newAsyncStatus) => {
 			<template #title>
 				<div class="flex flex-col justify-center items-center">
 					<p>Shorten Your Links, <span class="text-primary">Expand Your Reach</span></p>
+				</div>
+			</template>
+
+			<template #links>
+				<div class="w-full">
+					<HeroAppLinkInput />
 				</div>
 			</template>
 
