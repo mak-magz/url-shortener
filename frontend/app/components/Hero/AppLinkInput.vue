@@ -15,10 +15,13 @@ type UrlInfo = {
 }
 
 const config = useRuntimeConfig()
+const toast = useToast()
 
 const state = reactive<Schema>({
 	url: ''
 })
+
+const originalUrl = ref('')
 const shortUrl = ref('')
 
 const { mutate: shortenUrl, status, asyncStatus, error, data } = useMutation({
@@ -34,6 +37,8 @@ const { mutate: shortenUrl, status, asyncStatus, error, data } = useMutation({
 		console.log(response)
 		// response is correctly typed as { shortUrl: string }
 		shortUrl.value = config.public.backendApiBaseUrl + '/' + response.data.shortCode
+		originalUrl.value = state.url
+		state.url = ''
 	},
 	onError: (error) => {
 		console.error(error)
@@ -46,6 +51,14 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
 
 const onError = async (event: FormErrorEvent) => {
 	console.log(event)
+}
+
+const copyToClipboard = () => {
+	navigator.clipboard.writeText(shortUrl.value)
+	toast.add({
+		title: 'Copied to clipboard',
+		color: 'success'
+	})
 }
 
 watch(data, (newData) => {
@@ -112,7 +125,7 @@ watch(asyncStatus, (newAsyncStatus) => {
 						Original URL
 					</div>
 					<div class="text-ellipsis overflow-hidden whitespace-nowrap max-w-[200px]">
-						{{ state.url }}
+						{{ originalUrl }}
 					</div>
 				</div>
 				<USeparator
@@ -128,6 +141,8 @@ watch(asyncStatus, (newAsyncStatus) => {
 					label="Copy"
 					color="primary"
 					size="md"
+					icon="i-lucide-copy"
+					@click="copyToClipboard"
 				/>
 			</div>
 		</UCard>
