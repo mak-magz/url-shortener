@@ -1,5 +1,14 @@
 <script setup lang="ts">
 import { useMutation } from '@pinia/colada'
+import * as v from 'valibot'
+
+import type { FormErrorEvent, FormSubmitEvent } from '#ui/types'
+
+const schema = v.object({
+	url: v.pipe(v.string(), v.url('Invalid URL'))
+})
+
+type Schema = v.InferOutput<typeof schema>
 
 type UrlInfo = {
 	shortCode: string
@@ -7,7 +16,9 @@ type UrlInfo = {
 
 const config = useRuntimeConfig()
 
-const url = ref('')
+const state = reactive<Schema>({
+	url: ''
+})
 const shortUrl = ref('')
 
 const { mutate: shortenUrl, status, asyncStatus, error, data } = useMutation({
@@ -29,6 +40,14 @@ const { mutate: shortenUrl, status, asyncStatus, error, data } = useMutation({
 	}
 })
 
+const onSubmit = async (event: FormSubmitEvent<Schema>) => {
+	shortenUrl(event.data.url)
+}
+
+const onError = async (event: FormErrorEvent) => {
+	console.log(event)
+}
+
 watch(data, (newData) => {
 	console.log(newData)
 })
@@ -48,27 +67,38 @@ watch(asyncStatus, (newAsyncStatus) => {
 
 <template>
 	<div class="flex flex-col gap-2">
-		<UInput
-			v-model="url"
-			placeholder="Enter your URL"
-			size="xl"
-			class="w-full"
-			variant="soft"
-			icon="i-lucide-link"
-			:ui="{
-				base: 'overflow-x-hidden text-ellipsis whitespace-nowrap truncate'
-			}"
+		<UForm
+			:schema="schema"
+			:state="state"
+			class="space-y-4"
+			@submit="onSubmit"
+			@error="onError"
 		>
-			<template #trailing>
-				<UButton
-					label="Shorten"
-					color="primary"
-					size="md"
-					@click="shortenUrl(url)"
-				/>
-			</template>
-		</UInput>
-
+			<UFormField
+				name="url"
+			>
+				<UInput
+					v-model="state.url"
+					placeholder="Enter your URL"
+					size="xl"
+					class="w-full"
+					variant="soft"
+					icon="i-lucide-link"
+					:ui="{
+						base: 'overflow-x-hidden text-ellipsis whitespace-nowrap truncate'
+					}"
+				>
+					<template #trailing>
+						<UButton
+							label="Shorten"
+							color="primary"
+							size="md"
+							type="submit"
+						/>
+					</template>
+				</UInput>
+			</UFormField>
+		</UForm>
 		<UCard
 			v-if="shortUrl"
 			:ui="{
@@ -82,7 +112,7 @@ watch(asyncStatus, (newAsyncStatus) => {
 						Original URL
 					</div>
 					<div class="text-ellipsis overflow-hidden whitespace-nowrap max-w-[200px]">
-						{{ url }}
+						{{ state.url }}
 					</div>
 				</div>
 				<USeparator
