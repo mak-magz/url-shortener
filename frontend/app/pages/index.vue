@@ -40,6 +40,7 @@
 		</UPageHero>
 
 		<LandingFeatureSection />
+		<LandingCTASection />
 		<!--
     <UPageSection
       id="features"
