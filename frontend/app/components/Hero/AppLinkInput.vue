@@ -36,7 +36,7 @@ const { mutate: shortenUrl, status, asyncStatus, error, data } = useMutation({
 	onSuccess: (response) => {
 		console.log(response)
 		// response is correctly typed as { shortUrl: string }
-		shortUrl.value = window.location.origin.replace('https://', '').replace('http://', '') + '/' + response.data.shortCode
+		shortUrl.value = config.public.appBaseUrl?.replace('https://', '').replace('http://', '').replace('www.', '') + '/' + response.data.shortCode
 		originalUrl.value = state.url
 		state.url = ''
 	},

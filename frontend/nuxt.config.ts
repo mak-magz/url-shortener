@@ -20,7 +20,8 @@ export default defineNuxtConfig({
 		public: {
 			backendApiBaseUrl: process.env.BACKEND_API_BASE_URL,
 			backendApiVersion: process.env.BACKEND_API_VERSION,
-			backendApiPrefix: process.env.BACKEND_API_PREFIX
+			backendApiPrefix: process.env.BACKEND_API_PREFIX,
+			appBaseUrl: process.env.APP_BASE_URL
 		}
 	},
 
