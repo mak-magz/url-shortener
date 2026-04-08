@@ -163,7 +163,7 @@ const sections = ref<PricingTableSection[]>([
 		</UContainer>
 
 		<UPageSection>
-			<h3 class="text-center text-2xl font-bold">
+			<h3 class="text-center text-3xl font-bold">
 				Compare Plans
 			</h3>
 			<UPricingTable
@@ -171,5 +171,7 @@ const sections = ref<PricingTableSection[]>([
 				:sections="sections"
 			/>
 		</UPageSection>
+
+		<PricingFaq />
 	</div>
 </template>
