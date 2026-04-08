@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PricingPlanProps } from '@nuxt/ui'
+import type { PricingPlanProps, PricingTableSection, PricingTableTier } from '@nuxt/ui'
 
 const plans = ref<PricingPlanProps[]>([
 	{
@@ -58,6 +58,94 @@ const plans = ref<PricingPlanProps[]>([
 		}
 	}
 ])
+
+const tiers = ref<PricingTableTier[]>([
+	{
+		id: 'free',
+		title: 'Free'
+	},
+	{
+		id: 'pro',
+		title: 'Pro',
+		highlight: true
+	},
+	{
+		id: 'enterprise',
+		title: 'Enterprise'
+	}
+])
+
+const sections = ref<PricingTableSection[]>([
+	{
+		title: 'Features',
+		features: [
+			{
+				title: 'Monthly Links',
+				tiers: {
+					free: '20',
+					pro: 'Unlimited',
+					enterprise: 'Unlimited'
+				}
+			},
+			{
+				title: 'Link History',
+				tiers: {
+					free: '30 days',
+					pro: 'Unlimited',
+					enterprise: 'Unlimited'
+				}
+			},
+			{
+				title: 'Realtime Analytics',
+				tiers: {
+					free: false,
+					pro: true,
+					enterprise: true
+				}
+			},
+			{
+				title: 'QR Code Generation',
+				tiers: {
+					free: true,
+					pro: true,
+					enterprise: true
+				}
+			},
+			{
+				title: 'Branded domains',
+				tiers: {
+					free: false,
+					pro: false,
+					enterprise: true
+				}
+			},
+			{
+				title: 'Team collaboration',
+				tiers: {
+					free: false,
+					pro: false,
+					enterprise: true
+				}
+			},
+			{
+				title: 'API access',
+				tiers: {
+					free: false,
+					pro: false,
+					enterprise: true
+				}
+			},
+			{
+				title: 'Dedicated support',
+				tiers: {
+					free: false,
+					pro: false,
+					enterprise: true
+				}
+			}
+		]
+	}
+])
 </script>
 
 <template>
@@ -73,5 +161,15 @@ const plans = ref<PricingPlanProps[]>([
 				scale
 			/>
 		</UContainer>
+
+		<UPageSection>
+			<h3 class="text-center text-2xl font-bold">
+				Compare Plans
+			</h3>
+			<UPricingTable
+				:tiers="tiers"
+				:sections="sections"
+			/>
+		</UPageSection>
 	</div>
 </template>
