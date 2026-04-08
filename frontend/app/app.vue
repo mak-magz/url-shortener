@@ -11,8 +11,8 @@ useHead({
 	}
 })
 
-const title = 'Nuxt Starter Template'
-const description = 'A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours.'
+const title = 'SwiftLink'
+const description = 'SwiftLink is a URL shortening service that allows you to shorten your URLs and share them with others.'
 
 useSeoMeta({
 	title,

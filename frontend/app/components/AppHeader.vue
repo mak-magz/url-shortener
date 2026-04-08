@@ -32,7 +32,7 @@ const items = computed<NavigationMenuItem[]>(() => [
 				<AppLogo class="w-auto h-6 shrink-0" />
 			</NuxtLink>
 
-			<TemplateMenu />
+			<!-- <TemplateMenu /> -->
 		</template>
 
 		<UNavigationMenu :items="items" />

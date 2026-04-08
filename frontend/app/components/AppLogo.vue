@@ -1,5 +1,5 @@
 <template>
-	<svg
+	<!-- <svg
 		width="1020"
 		height="200"
 		viewBox="0 0 1020 200"
@@ -36,5 +36,15 @@
 			d="M1000 60.0233L1020 60V77L1020 128V156.007L1020 181L1020 189.004C1020 192.938 1019.98 194.429 1017 197.001C1014.02 199.725 1009.56 200 1005 200H986.001V181.006L986 130.012V70.0215C986 66.1576 986.016 64.5494 989 62.023C991.819 59.6358 995.437 60.0233 1000 60.0233Z"
 			fill="var(--ui-primary)"
 		/>
-	</svg>
+	</svg> -->
+	<div
+		class="flex items-center gap-2"
+		@click="navigateTo('/')"
+	>
+		<UIcon
+			name="i-lucide-link"
+			class="text-primary"
+		/>
+		<span class="text-2xl font-bold">SwiftLink</span>
+	</div>
 </template>
