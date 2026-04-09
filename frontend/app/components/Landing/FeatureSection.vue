@@ -32,5 +32,6 @@ const features = ref<PageFeatureProps[]>([
 		description="Our suite of tools gives you total control over your shared content with industry-leading technology."
 		headline="Platform Benefits"
 		:features="features"
+		class="bg-white dark:bg-violet-950"
 	/>
 </template>

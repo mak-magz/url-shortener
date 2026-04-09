@@ -166,10 +166,13 @@ const sections = ref<PricingTableSection[]>([
 			<h3 class="text-center text-3xl font-bold">
 				Compare Plans
 			</h3>
-			<UPricingTable
-				:tiers="tiers"
-				:sections="sections"
-			/>
+
+			<UCard>
+				<UPricingTable
+					:tiers="tiers"
+					:sections="sections"
+				/>
+			</UCard>
 		</UPageSection>
 
 		<PricingFaq />

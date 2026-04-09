@@ -12,7 +12,13 @@
   --color-violet-500: #7c3aed;
   --color-violet-600: #6d28d9;
   --color-violet-700: #5b21b6;
-  --color-violet-800: #4c1d95;
+  --color-violet-800: #4c1d95;  
   --color-violet-900: #2e1065;
   --color-violet-950: #1e0a45;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-100 dark:bg-gray-900; /* dark gray in dark mode */
+  }
 }

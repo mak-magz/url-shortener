@@ -15,12 +15,10 @@ const links = ref<ButtonProps[]>([
 </script>
 
 <template>
-	<UPageSection>
-		<UPageCTA
-			title="Ready to start shortening?"
-			description="Join over 10,000+ creators and businesses who trust SwiftLink for their digital link management."
-			:links="links"
-			variant="subtle"
-		/>
-	</UPageSection>
+	<UPageCTA
+		title="Ready to start shortening?"
+		description="Join over 10,000+ creators and businesses who trust SwiftLink for their digital link management."
+		:links="links"
+		variant="subtle"
+	/>
 </template>
