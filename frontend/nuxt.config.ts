@@ -39,5 +39,13 @@ export default defineNuxtConfig({
 				braceStyle: '1tbs'
 			}
 		}
+	},
+
+	icon: {
+		clientBundle: {
+			scan: true,
+			sizeLimitKb: 256
+		},
+		serverBundle: 'local'
 	}
 })
