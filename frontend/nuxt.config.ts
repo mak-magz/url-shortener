@@ -46,6 +46,7 @@ export default defineNuxtConfig({
 			scan: true,
 			sizeLimitKb: 256
 		},
-		serverBundle: 'local'
+		serverBundle: 'local',
+		localApiEndpoint: '/icon/_nuxt_icon'
 	}
 })
