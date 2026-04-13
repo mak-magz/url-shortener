@@ -17,8 +17,18 @@
   --color-violet-950: #1e0a45;
 }
 
-@layer base {
-  body {
-    @apply bg-gray-100 dark:bg-gray-900; /* dark gray in dark mode */
-  }
+:root {
+  --ui-radius: 0.25rem;
+}
+
+:root, .light {
+  --ui-bg: var(--ui-color-neutral-50);
+  --ui-bg-muted: var(--ui-color-neutral-100);
+  --ui-border: var(--ui-color-neutral-200);
+}
+
+.dark {
+  --ui-bg: var(--ui-color-neutral-900);
+  --ui-bg-muted: var(--ui-color-neutral-900);
+  --ui-border: var(--color-neutral-800);
 }
