@@ -28,7 +28,6 @@ const items = computed<NavigationMenuItem[]>(() => [
 <template>
 	<UHeader
 		mode="slideover"
-		class="bg-gray-100 dark:bg-gray-900"
 	>
 		<template #left>
 			<NuxtLink to="/">
