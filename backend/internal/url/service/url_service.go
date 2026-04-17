@@ -57,6 +57,11 @@ func (u *URLService) GetOriginalURL(ctx context.Context, shortCode string) (stri
 		return "", appErrors.NewNotFoundError("URL not found", err)
 	}
 
+	// Check if the short code is the same as the one in the database
+	if url.ShortCode != shortCode {
+		return "", appErrors.NewNotFoundError("URL not found", err)
+	}
+
 	err = u.repo.IncrementClick(ctx, url.ID)
 
 	if err != nil {
