@@ -41,14 +41,14 @@ func (r *PostgresRepository) CreateShortURL(ctx context.Context, u *model.URL) e
 
 func (r *PostgresRepository) GetURLByShortCode(ctx context.Context, shortCode string) (*model.URL, error) {
 	query := `
-		SELECT id, original_url, clicks, created_at
+		SELECT id, original_url, short_code, clicks, created_at
 		FROM urls
 		WHERE short_code = $1
 	`
 
 	u := &model.URL{}
 
-	err := r.pool.QueryRow(ctx, query, shortCode).Scan(&u.ID, &u.OriginalURL, &u.Clicks, &u.CreatedAt)
+	err := r.pool.QueryRow(ctx, query, shortCode).Scan(&u.ID, &u.OriginalURL, &u.ShortCode, &u.Clicks, &u.CreatedAt)
 	if err != nil {
 		return nil, err
 	}
