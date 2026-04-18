@@ -2,7 +2,7 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: 'Public Sans', sans-serif;
+  --font-sans: 'Inter', sans-serif;
 
   --color-violet-50: #f5f3ff;
   --color-violet-100: #ede9fe;
